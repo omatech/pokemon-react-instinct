@@ -1,10 +1,6 @@
-import ListItem from './ListItem'
-
-const List = () => 
+const List = ({children}) =>
 <ul>
-  <ListItem />
-  <ListItem />
-  <ListItem />
+  { children }
 </ul>
 
 export default List;
