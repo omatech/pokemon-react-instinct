@@ -1,24 +1,7 @@
-const pokemons = [
-    {
-        id: 1,
-        name: 'Bulbasaur',
-        attacks: ['Látigo cepa', 'Rayo solar', 'Hoja afilada']
-    },
-    {
-        id: 4,
-        name: 'Charmander',
-        attacks: ['Ascuas', 'Llamarada', 'Lanzallamas']
-    },
-    {
-        id: 7,
-        name: 'Squirtle',
-        attacks: ['Pistola de agua', 'Hidrobomba', 'Cabezazo']
-    },
-    {
-        id: 25,
-        name: 'Pikachu',
-        attacks: ['Impactrueno', 'Onda trueno', 'Ataque rápido']
-    }
-]
+import pokemonsData from './pokemons.json'
+
+const pokemons=pokemonsData.map(pokemon => {
+    return {id: pokemon.id, name: pokemon.name, attacks: pokemon.moves, types: pokemon.types}
+});
 
 export default pokemons;
