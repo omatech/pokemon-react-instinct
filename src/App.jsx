@@ -1,6 +1,7 @@
 import List from './components/list/List'
 import ListItem from './components/List/ListItem'
 import pokemons from "./api"
+import './styles/app.scss'
 
 const App = () => {
   const filteredPokemons = pokemons.filter(pokemon => {

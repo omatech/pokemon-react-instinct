@@ -1,5 +1,7 @@
+import styles from './List.module.scss'
+
 const List = ({children}) =>
-<ul>
+<ul className={styles.color}>
   { children }
 </ul>
 

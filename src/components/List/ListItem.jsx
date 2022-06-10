@@ -1,8 +1,13 @@
 import PropTypes from 'prop-types';
 import PropertiesList from './PropertiesList';
+import styled from 'styled-components';
+
+const StyledLi = styled.span`
+  background-color: red;
+`
 
 const ListItem = ({pokemon}) =>
-<li>
+<StyledLi>
     <span>{pokemon.name}</span>
     <img src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemon.id}.png`}/>
     
@@ -13,7 +18,7 @@ const ListItem = ({pokemon}) =>
     {
       pokemon.types && <PropertiesList title="Types" items={pokemon.types}/>
     }
-</li>
+</StyledLi>
 
 ListItem.propTypes = {
     pokemon: PropTypes.shape({
