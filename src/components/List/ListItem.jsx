@@ -3,22 +3,28 @@ import PropertiesList from './PropertiesList';
 import styled from 'styled-components';
 
 const StyledLi = styled.span`
-  background-color: red;
+  ${({color}) => `background-color: ${color}`};
+  // background-color: ${({color}) => color};
 `
 
-const ListItem = ({pokemon}) =>
-<StyledLi>
-    <span>{pokemon.name}</span>
-    <img src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemon.id}.png`}/>
-    
-    {
-      pokemon.attacks && <PropertiesList title="Attacks" items={pokemon.attacks}/>
-    }
-    
-    {
-      pokemon.types && <PropertiesList title="Types" items={pokemon.types}/>
-    }
-</StyledLi>
+const ListItem = ({pokemon}) => {
+    const pokemonColor = pokemon.types.includes('Agua') ? 'blue': 'red';
+
+    return (
+        <StyledLi color={pokemonColor}>
+            <span style={{color: "white"}}>{pokemon.name}</span>
+            <img src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemon.id}.png`}/>
+
+            {
+                pokemon.attacks && <PropertiesList title="Attacks" items={pokemon.attacks}/>
+            }
+
+            {
+                pokemon.types && <PropertiesList title="Types" items={pokemon.types}/>
+            }
+        </StyledLi>
+    )
+}
 
 ListItem.propTypes = {
     pokemon: PropTypes.shape({
