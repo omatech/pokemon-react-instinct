@@ -4,9 +4,7 @@ import pokemons from "./api"
 import './styles/app.scss'
 
 const App = () => {
-  const filteredPokemons = pokemons.filter(pokemon => {
-    return pokemon.types.includes('Veneno');
-  });
+  const filteredPokemons = pokemons.filter(pokemon => ['Veneno', 'Agua'].some(type => pokemon.types.includes(type)));
   return (
     <List>
       {
