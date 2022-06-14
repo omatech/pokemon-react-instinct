@@ -4,13 +4,20 @@ import pokemons from "./api"
 import './styles/app.scss'
 
 const App = () => {
-  const filteredPokemons = pokemons.filter(pokemon => ['Veneno', 'Agua'].some(type => pokemon.types.includes(type)));
+  const [types, setTypes, selectedTypes] = usePokemonTypes();
+  const filteredPokemons = pokemons.filter(pokemon => 
+    selectedTypes.some(
+      type => pokemon.types.includes(type.name))
+    );
   return (
+    <>
+    <ListFilter types={types} setTypes={setTypes}/>
     <List>
       {
         filteredPokemons.map(pokemon => <ListItem key={pokemon.id} pokemon={pokemon} />)
       }
     </List>
+    </>
 )
 }
 
