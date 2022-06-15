@@ -1,7 +1,10 @@
 import List from './components/list/List'
+import ListFilter from './components/list/ListFilter'
 import ListItem from './components/List/ListItem'
 import pokemons from "./api"
 import './styles/app.scss'
+
+import usePokemonTypes from './hooks/usePokemonTypes';
 
 const App = () => {
   const [types, setTypes, selectedTypes] = usePokemonTypes();

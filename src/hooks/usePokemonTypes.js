@@ -1,3 +1,5 @@
+import {React, useState} from 'react'
+
 const usePokemonTypes = () => {
   const initialTypes=[
     {name: 'Veneno', isSelected: true}, 
