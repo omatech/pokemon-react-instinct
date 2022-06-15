@@ -12,8 +12,8 @@ const ListFilter = ({types, setTypes}) => {
                 types.map(type => 
                     [
                         <label key={type.name}>
+                            <input type="checkbox" name="types" checked={type.isSelected} onChange={onChangeHandler}/>
                             <span>{type.name}</span>
-                            <input type="checkbox" name="types" checked={type.selected} onChange={onChangeHandler}/>
                         </label>
                     ]
                 )
