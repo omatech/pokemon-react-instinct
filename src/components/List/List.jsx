@@ -1,8 +1,14 @@
 import styles from './List.module.scss'
+import styled from 'styled-components';
+
+const StyledUl = styled.ul`
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+`;
 
 const List = ({children}) =>
-<ul className={styles.color}>
+<StyledUl className={styles.color}>
   { children }
-</ul>
+</StyledUl>
 
 export default List;
