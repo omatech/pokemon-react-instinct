@@ -1,21 +1,17 @@
 import List from './components/list/List'
-import ListFilter from './components/list/ListFilter'
 import ListItem from './components/List/ListItem'
-import pokemons from "./api"
 import './styles/app.scss'
-
-import usePokemonTypes from './hooks/usePokemonTypes';
+import TypeFilter from "./components/List/TypeFilter";
+import SearchFilter from "./components/list/SearchFilter";
+import usePokemons from "./hooks/usePokemons";
 
 const App = () => {
-    const [types, setTypes, selectedTypes] = usePokemonTypes();
-    const filteredPokemons = pokemons.filter(pokemon =>
-        selectedTypes.some(
-            type => pokemon.types.includes(type.name))
-    );
+    const [types, setTypes, setSearchValue, filteredPokemons] = usePokemons();
 
     return (
         <>
-            <ListFilter types={types} setTypes={setTypes}/>
+            <SearchFilter setSearchValue={setSearchValue}/>
+            <TypeFilter types={types} setTypes={setTypes}/>
             <List>
                 {
                     filteredPokemons.map(pokemon => <ListItem key={pokemon.id} pokemon={pokemon}/>)
