@@ -1,12 +1,13 @@
-import List from './components/list/List'
-import ListItem from './components/List/ListItem'
-import './styles/app.scss'
+import List from "./components/list/List";
+import ListItem from "./components/List/ListItem";
 import TypeFilter from "./components/List/TypeFilter";
 import SearchFilter from "./components/list/SearchFilter";
+import Pagination from "./components/List/Pagination";
 import usePokemons from "./hooks/usePokemons";
+import "./styles/app.scss";
 
 const App = () => {
-    const [types, setTypes, setSearchValue, filteredPokemons] = usePokemons();
+    const [types, setTypes, setSearchValue, pagination, paginationLength, pokemonsInPage] = usePokemons();
 
     return (
         <>
@@ -14,9 +15,10 @@ const App = () => {
             <TypeFilter types={types} setTypes={setTypes}/>
             <List>
                 {
-                    filteredPokemons.map(pokemon => <ListItem key={pokemon.id} pokemon={pokemon}/>)
+                    pokemonsInPage && pokemonsInPage.map(pokemon => <ListItem key={pokemon.id} pokemon={pokemon}/>)
                 }
             </List>
+            <Pagination pagination={pagination} paginationLength={paginationLength} />
         </>
     )
 }

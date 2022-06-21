@@ -1,5 +1,5 @@
-import styles from './List.module.scss'
-import styled from 'styled-components';
+import styles from "./List.module.scss";
+import styled from "styled-components";
 
 const StyledUl = styled.ul`
   display: grid;

@@ -1,4 +1,4 @@
-import pokemons from "./../api"
+import pokemons from "./../api";
 
 const useFilteredPokemons = ({selectedTypes, searchValue}) => {
     let filteredPokemons = pokemons.filter(pokemon =>
