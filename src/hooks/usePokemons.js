@@ -2,13 +2,15 @@ import {useState} from "react";
 import usePokemonTypes from "./usePokemonTypes";
 import useFilteredPokemons from "./useFilteredPokemons";
 import usePaginatedPokemons from "./usePaginatedPokemons";
+import useSortedPokemons from "./useSortedPokemons";
 
 const usePokemons = () => {
     const [types, setTypes, selectedTypes] = usePokemonTypes();
     const [searchValue, setSearchValue] = useState("");
     const filteredPokemons = useFilteredPokemons({selectedTypes, searchValue});
-    const {pagination, paginationLength, pokemonsInPage} = usePaginatedPokemons(filteredPokemons);
-    return [types, setTypes, setSearchValue, pagination, paginationLength, pokemonsInPage];
+    const {sortedPokemons, sorting } = useSortedPokemons(filteredPokemons);
+    const {pagination, paginationLength, pokemonsInPage} = usePaginatedPokemons(sortedPokemons);
+    return [types, setTypes, setSearchValue, pagination, paginationLength, pokemonsInPage, sorting];
 }
 
 export default usePokemons;
