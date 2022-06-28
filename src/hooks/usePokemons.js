@@ -1,11 +1,11 @@
 import {useState} from "react";
-import usePokemonTypes from "./usePokemonTypes";
+import usePokemonTypeApi from "./usePokemonTypeApi";
 import useFilteredPokemons from "./useFilteredPokemons";
 import usePaginatedPokemons from "./usePaginatedPokemons";
 import useSortedPokemons from "./useSortedPokemons";
 
 const usePokemons = () => {
-    const [types, setTypes, selectedTypes] = usePokemonTypes();
+    const [types, setTypes, selectedTypes] = usePokemonTypeApi();
     const [searchValue, setSearchValue] = useState("");
     const filteredPokemons = useFilteredPokemons({selectedTypes, searchValue});
     const {sortedPokemons, sorting } = useSortedPokemons(filteredPokemons);
