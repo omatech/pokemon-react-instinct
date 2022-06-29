@@ -1,53 +1,42 @@
+const RadioGroup = ({value, name, onChange, isChecked}) => <label>
+    <input onChange={onChange}
+           type="radio"
+           name={name}
+           value={value}
+           checked={isChecked}
+    />
+    <span>{value}</span>
+</label>
+
 const SortFilter = ({sorting}) => {
-    const {columns, sortTypes, columnsState, setColumnsState} = sorting;
-
-    const onChangeHandler = ({column, sortType}) => {
-        setColumnsState((state) => {
-            const newState = structuredClone(state);
-            newState.map(columnState => {
-                columnState.sortType = sortTypes[0];
-                return columnState
-            });
-            newState.find(columnState => columnState.column === column).sortType = sortType;
-            return newState;
-        });
-    }
-
-    const isSortColumnChecked = ({sortType, column}) => {
-        return !!columnsState.find(columnState => columnState.column === column && columnState.sortType === sortType);
-    }
-
+    const {
+        columns,
+        selectedColumn,
+        setSelectedColumn,
+        sortTypes,
+        selectedSortType,
+        setSelectedSortType
+    } = sorting;
 
     return (
-        <>
-            {columns.map(column => (
-                sortTypes.map(sortType => (
-                    <label key={`${sortType}-${column}`}>
-                        <span>{sortType}-{column}</span>
-                        <input onChange={() => onChangeHandler({column, sortType})}
-                               type="radio"
-                               name="sortColumn"
-                               value={`${sortType}-${column}`}
-                               checked={isSortColumnChecked({sortType, column})}
-                        />
-                    </label>
-                ))/*
-                <>
-                    <label key={`desc-${column}`}>
-                        <span>{column}</span>
-                        <input onChange={onChangeHandler} type="radio" name="sortColumn" value={`desc-${column}`} checked={selectedColumn === column}/>
-                    </label>
-                    <label key={`asc-${column}`}>
-                        <span>{column}</span>
-                        <input onChange={onChangeHandler} type="radio" name="sortColumn" value={`asc-${column}`} checked={selectedColumn === column}/>
-                    </label>
-                    <label key={`asc-${column}`}>
-                        <span>{column}</span>
-                        <input onChange={onChangeHandler} type="radio" name="sortColumn" value={`asc-${column}`} checked={selectedColumn === column}/>
-                    </label>
-                </>*/
-            ))}
-        </>
+        <div>
+            {columns.map(column => <RadioGroup
+                key={column}
+                value={column}
+                name="columns"
+                onChange={(e) => setSelectedColumn(e.target.value)}
+                isChecked={column === selectedColumn}
+            />
+            )}
+            <br />
+            {sortTypes.map(sortType => <RadioGroup
+                key={sortType}
+                value={sortType}
+                name="sortTypes"
+                onChange={(e) => setSelectedSortType(e.target.value)}
+                isChecked={sortType === selectedSortType}
+            />)}
+        </div>
     );
 }
 

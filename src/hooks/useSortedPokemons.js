@@ -2,14 +2,10 @@ import {useState} from "react";
 
 const useSortedPokemons = (pokemons) => {
     const columns = ["id", "name"];
-    const sortTypes = ["none", "asc", "desc"];
-    const [columnsState, setColumnsState] = useState(columns.map(column => ({column, sortType: sortTypes[0]})));
+    const sortTypes = ["asc", "desc"];
 
-    const getSelectedColumn = () => {
-        return columnsState.find(columnState => columnState.sortType !== sortTypes[0]);
-    }
-
-    const selectedColumn = getSelectedColumn();
+    const [selectedColumn, setSelectedColumn] = useState(columns[0]);
+    const [selectedSortType, setSelectedSortType] = useState(sortTypes[0]);
 
     const sortedPokemons = pokemons.sort((a, b) => {
         if (a[selectedColumn] > b[selectedColumn]) {
@@ -24,9 +20,11 @@ const useSortedPokemons = (pokemons) => {
     return {
         sorting: {
             columns,
+            selectedColumn,
+            setSelectedColumn,
             sortTypes,
-            columnsState,
-            setColumnsState
+            selectedSortType,
+            setSelectedSortType
         },
         sortedPokemons,
     };

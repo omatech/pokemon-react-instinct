@@ -1,6 +1,4 @@
-import pokemons from "./../api";
-
-const useFilteredPokemons = ({selectedTypes, searchValue}) => {
+const useFilteredPokemons = ({selectedTypes, searchValue, pokemons}) => {
     let filteredPokemons = pokemons.filter(pokemon =>
         pokemon.name.toLowerCase().includes(searchValue.toLowerCase())
     );
@@ -9,7 +7,7 @@ const useFilteredPokemons = ({selectedTypes, searchValue}) => {
         filteredPokemons = filteredPokemons.filter(pokemon => selectedTypes.some(type => pokemon.types.includes(type.name)))
     }
 
-    return filteredPokemons;
+    return {filteredPokemons}
 }
 
 export default useFilteredPokemons;

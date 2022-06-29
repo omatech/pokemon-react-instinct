@@ -17,7 +17,7 @@ const Pagination = ({pagination, paginationLength}) => {
     return <>
         <select onChange={onChangeHandler} value={itemsToShow}>
             {
-                itemsPerPage.map(size => <option value={size}>{size}</option>)
+                itemsPerPage.map(size => <option value={size} key={size}>{size}</option>)
             }
         </select>
         { renderButtons() }

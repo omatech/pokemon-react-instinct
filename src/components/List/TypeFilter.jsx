@@ -1,4 +1,4 @@
-const TypeFilter = ({types, setTypes}) => {
+const TypeFilter = ({types, setTypes, isLoading}) => {
     const onChangeHandler = ({target}) => {
         setTypes((state) => {
             const newState = structuredClone(state);
@@ -7,8 +7,8 @@ const TypeFilter = ({types, setTypes}) => {
         });
     };
 
-    return (
-            <div>
+    return isLoading ? <span className="spinner spinner-slow"/>
+        : <div>
                 {
                     types.map(type =>
                         [
@@ -21,7 +21,6 @@ const TypeFilter = ({types, setTypes}) => {
                     )
                 }
             </div>
-    );
 }
 
 export default TypeFilter;

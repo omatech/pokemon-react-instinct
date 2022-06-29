@@ -8,18 +8,21 @@ import usePokemons from "./hooks/usePokemons";
 import "./styles/app.scss";
 
 const App = () => {
-    const [types, setTypes, setSearchValue, pagination, paginationLength, pokemonsInPage, sorting] = usePokemons();
+    const {isLoading, types, isLoadingTypes, setTypes, setSearchValue, pagination, paginationLength, pokemonsInPage, sorting} = usePokemons();
 
     return (
         <>
             <SearchFilter setSearchValue={setSearchValue}/>
-            <TypeFilter types={types} setTypes={setTypes}/>
+            <TypeFilter types={types} setTypes={setTypes} isLoading={isLoadingTypes} />
             <SortFilter sorting={sorting}/>
-            <List>
-                {
-                    pokemonsInPage && pokemonsInPage.map(pokemon => <ListItem key={pokemon.id} pokemon={pokemon}/>)
-                }
-            </List>
+            {isLoading
+                ? <span className="spinner spinner-slow"></span>
+                : <List>
+                    {
+                        pokemonsInPage && pokemonsInPage.map(pokemon => <ListItem key={pokemon.id} pokemon={pokemon}/>)
+                    }
+                </List>
+            }
             <Pagination pagination={pagination} paginationLength={paginationLength} />
         </>
     )
