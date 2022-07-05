@@ -17,16 +17,12 @@ const usePaginatedPokemons = (pokemons) => {
     const pagesNumber = paginatedPokemons.length;
 
     return {
-        pagination: {
-            selectedPage,
-            setSelectedPage,
-            pagesNumber
-        },
-        paginationLength: {
-            itemsToShow,
-            setItemsToShow,
-            itemsPerPage
-        },
+        selectedPage,
+        setSelectedPage,
+        pagesNumber,
+        itemsToShow,
+        setItemsToShow,
+        itemsPerPage,
         pokemonsInPage: paginatedPokemons[selectedPage]
     }
 }

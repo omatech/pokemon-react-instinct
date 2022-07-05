@@ -17,16 +17,13 @@ const useSortedPokemons = (pokemons) => {
         return 0;
     });
 
-
     return {
-        sorting: {
-            columns,
-            selectedColumn,
-            setSelectedColumn,
-            sortTypes,
-            selectedSortType,
-            setSelectedSortType
-        },
+        columns,
+        selectedColumn,
+        setSelectedColumn,
+        sortTypes,
+        selectedSortType,
+        setSelectedSortType,
         sortedPokemons,
     };
 }

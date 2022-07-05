@@ -1,6 +1,9 @@
-const Pagination = ({pagination, paginationLength}) => {
-    const {selectedPage, setSelectedPage, pagesNumber} = pagination;
-    const {itemsToShow, setItemsToShow, itemsPerPage} = paginationLength;
+import {useContext} from "react";
+import {PokemonContext} from "../../context/PokemonProvider";
+
+const Pagination = () => {
+    const {pagination} = useContext(PokemonContext);
+    const {selectedPage, setSelectedPage, pagesNumber, itemsToShow, setItemsToShow, itemsPerPage} = pagination;
 
     const renderButtons = () => {
         let buttons = [];

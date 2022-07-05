@@ -1,7 +1,11 @@
-import {useRef} from "react";
+import {useContext, useRef} from "react";
+import {PokemonContext} from "../../context/PokemonProvider";
 
-const SearchFilter = ({setSearchValue}) => {
+const SearchFilter = () => {
     const inputRef = useRef();
+    const {searchFilter} = useContext(PokemonContext);
+    const {setSearchValue} = searchFilter;
+
     const onClickHandler = () => {
         setSearchValue(inputRef.current.value)
     }

@@ -1,3 +1,6 @@
+import {useContext} from "react";
+import {PokemonContext} from "../../context/PokemonProvider";
+
 const RadioGroup = ({value, name, onChange, isChecked}) => <label>
     <input onChange={onChange}
            type="radio"
@@ -8,7 +11,9 @@ const RadioGroup = ({value, name, onChange, isChecked}) => <label>
     <span>{value}</span>
 </label>
 
-const SortFilter = ({sorting}) => {
+const SortFilter = () => {
+    const {sortFilter} = useContext(PokemonContext);
+
     const {
         columns,
         selectedColumn,
@@ -16,7 +21,7 @@ const SortFilter = ({sorting}) => {
         sortTypes,
         selectedSortType,
         setSelectedSortType
-    } = sorting;
+    } = sortFilter;
 
     return (
         <div>

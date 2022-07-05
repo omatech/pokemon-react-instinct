@@ -1,4 +1,10 @@
-const TypeFilter = ({types, setTypes, isLoading}) => {
+import {useContext} from "react";
+import {PokemonContext} from "../../context/PokemonProvider";
+
+const TypeFilter = () => {
+    const {typeFilter} = useContext(PokemonContext);
+    const {types, setTypes, isLoadingTypes} = typeFilter;
+
     const onChangeHandler = ({target}) => {
         setTypes((state) => {
             const newState = structuredClone(state);
@@ -7,7 +13,7 @@ const TypeFilter = ({types, setTypes, isLoading}) => {
         });
     };
 
-    return isLoading ? <span className="spinner spinner-slow"/>
+    return isLoadingTypes ? <span className="spinner spinner-slow"/>
         : <div>
                 {
                     types.map(type =>

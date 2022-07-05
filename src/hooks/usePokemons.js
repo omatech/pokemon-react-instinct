@@ -10,10 +10,16 @@ const usePokemons = () => {
     const {pokemons, isLoading} = usePokemonApi();
     const [searchValue, setSearchValue] = useState("");
     const {filteredPokemons} = useFilteredPokemons({selectedTypes, searchValue, pokemons});
-    const {sorting, sortedPokemons } = useSortedPokemons(filteredPokemons);
-    const {pagination, paginationLength, pokemonsInPage} = usePaginatedPokemons(sortedPokemons);
+    const {sortedPokemons, ...sortFilter} = useSortedPokemons(filteredPokemons);
+    const {pokemonsInPage, ...pagination} = usePaginatedPokemons(sortedPokemons);
+
     return {
-        types, isLoadingTypes, setTypes, isLoading, setSearchValue, sorting, pagination, paginationLength, pokemonsInPage
+        pokemons: pokemonsInPage,
+        isLoading,
+        typeFilter: {types, setTypes, isLoadingTypes},
+        searchFilter: {setSearchValue},
+        sortFilter,
+        pagination,
     };
 }
 
