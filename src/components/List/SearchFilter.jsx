@@ -1,13 +1,17 @@
-import {useState} from "react";
+import {useRef} from "react";
 
 const SearchFilter = ({setSearchValue}) => {
-    const [inputValue, setInputValue] = useState("");
-    const onChangeHandler = ({target}) => {
-        setInputValue(target.value)
-        setSearchValue(target.value)
+    const inputRef = useRef();
+    const onClickHandler = () => {
+        setSearchValue(inputRef.current.value)
     }
 
-    return <input type="text" value={inputValue} onChange={onChangeHandler}/>;
+    return <>
+        <input type="text" ref={inputRef}/>
+        <button onClick={onClickHandler}>Search</button>
+    </>;
+
+
 }
 
 export default SearchFilter;

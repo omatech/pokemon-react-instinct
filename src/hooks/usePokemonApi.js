@@ -20,7 +20,7 @@ const usePokemonApi = () => {
             }
         })();
 
-        /*return () => controller.abort();*/
+        return () => controller.abort();
     }, []);
 
     const getPokemonsData = async(pokemons) => {

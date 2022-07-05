@@ -4,9 +4,15 @@ const Pagination = ({pagination, paginationLength}) => {
 
     const renderButtons = () => {
         let buttons = [];
-        for(let i = 0; i < pagesNumber; i++) {
-            buttons.push(<button key={i} disabled={i === selectedPage} onClick={() => setSelectedPage(i)}>{ i + 1 }</button>)
+        let firstButton = selectedPage - 1;
+
+        if (selectedPage === pagesNumber - 1) firstButton = selectedPage - 2
+        else if (selectedPage === 0) firstButton = 0
+
+        for(let i = 0; i < 3; i++){
+            buttons.push(<button key={firstButton + i} disabled={firstButton + i === selectedPage} onClick={() => setSelectedPage(firstButton + i)}>{ firstButton + i + 1 }</button>);
         }
+
         return buttons;
     }
 
