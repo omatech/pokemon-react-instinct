@@ -1,15 +1,19 @@
-import {useEffect, useState} from "react";
+import {useEffect, useReducer} from "react";
+import { pokemonReducer } from "../reducers/pokemonReducer";
 
 const usePokemonTypeApi = () => {
-    const [types, setTypes] = useState([]);
-    const [isLoadingTypes, setIsLoadingTypes] = useState(true);
+    const [state, dispatch] = useReducer(pokemonReducer, {
+        types: [],
+        isLoading: true,
+        itemsToShow: 10,
+    });
     const POKEMON_TYPES_API = "https://pokeapi.co/api/v2/type";
+    const types = state.types;
 
     useEffect(() => {
         const controller = new AbortController();
 
         (async () => {
-            setIsLoadingTypes(true);
             const request = await fetch(POKEMON_TYPES_API, { signal: controller.signal });
             const result = await request.json();
             let types = [];
@@ -18,8 +22,12 @@ const usePokemonTypeApi = () => {
                     return { name: type.name, isSelected: false };
                 })
             }
-            setIsLoadingTypes(false);
-            setTypes(types);
+            dispatch({
+                type: 'SET_TYPES',
+                payload: {
+                    types
+                }
+            });
         })();
 
        /* return () => controller.abort();*/
@@ -28,9 +36,8 @@ const usePokemonTypeApi = () => {
     const selectedTypes = types.filter(type => type.isSelected);
 
     return {
-        types,
-        isLoadingTypes,
-        setTypes,
+        state,
+        dispatch,
         selectedTypes
     };
 }

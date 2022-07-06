@@ -1,19 +1,17 @@
-import {useContext} from "react";
-import {PokemonContext} from "../../context/PokemonProvider";
-
-const TypeFilter = () => {
-    const {typeFilter} = useContext(PokemonContext);
-    const {types, setTypes, isLoadingTypes} = typeFilter;
+const TypeFilter = ({ state, dispatch }) => {
+    const {types, isLoading} = state;
 
     const onChangeHandler = ({target}) => {
-        setTypes((state) => {
-            const newState = structuredClone(state);
-            newState.find(type => type.name === target.name).isSelected = target.checked;
-            return newState;
+        dispatch({
+            type: 'SET_SELECTED_TYPES',
+            payload: {
+                typeName: target.value.name,
+                typeIsChecked: target.value.isChecked
+            }
         });
     };
 
-    return isLoadingTypes ? <span className="spinner spinner-slow"/>
+    return isLoading ? <span className="spinner spinner-slow"/>
         : <div>
                 {
                     types.map(type =>

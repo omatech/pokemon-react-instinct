@@ -1,8 +1,9 @@
-import {useState} from "react";
+import {useState, useReducer} from "react";
+import { pokemonReducer } from "../reducers/pokemonReducer";
 
-const usePaginatedPokemons = (pokemons) => {
+const usePaginatedPokemons = ({pokemons, state, dispatch}) => {
     const itemsPerPage = [10, 25, 50];
-    const [itemsToShow, setItemsToShow] = useState(itemsPerPage[0]);
+    const {itemsToShow} = state;
 
     const [selectedPage, setSelectedPage] = useState(0);
 
@@ -20,8 +21,6 @@ const usePaginatedPokemons = (pokemons) => {
         selectedPage,
         setSelectedPage,
         pagesNumber,
-        itemsToShow,
-        setItemsToShow,
         itemsPerPage,
         pokemonsInPage: paginatedPokemons[selectedPage]
     }

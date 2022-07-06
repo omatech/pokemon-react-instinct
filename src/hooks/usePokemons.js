@@ -6,17 +6,17 @@ import useSortedPokemons from "./useSortedPokemons";
 import usePokemonApi from "./usePokemonApi";
 
 const usePokemons = () => {
-    const {types, isLoadingTypes, setTypes, selectedTypes} = usePokemonTypeApi();
+    const {state, dispatch, selectedTypes} = usePokemonTypeApi();
     const {pokemons, isLoading} = usePokemonApi();
     const [searchValue, setSearchValue] = useState("");
     const {filteredPokemons} = useFilteredPokemons({selectedTypes, searchValue, pokemons});
     const {sortedPokemons, ...sortFilter} = useSortedPokemons(filteredPokemons);
-    const {pokemonsInPage, ...pagination} = usePaginatedPokemons(sortedPokemons);
+    const {pokemonsInPage, ...pagination} = usePaginatedPokemons({pokemons: sortedPokemons, state, dispatch});
 
     return {
         pokemons: pokemonsInPage,
         isLoading,
-        typeFilter: {types, setTypes, isLoadingTypes},
+        typeFilter: {state, dispatch},
         searchFilter: {setSearchValue},
         sortFilter,
         pagination,

@@ -11,11 +11,12 @@ import PokemonProvider from "./context/PokemonProvider";
 const App = () => {
     const pokemonsData = usePokemons();
     const {pokemons, isLoading} = pokemonsData;
+    const {state, dispatch} = pokemonsData.typeFilter;
 
     return (
         <PokemonProvider pokemonsData={pokemonsData}>
             <SearchFilter />
-            <TypeFilter  />
+            <TypeFilter state={state} dispatch={dispatch} />
             <SortFilter />
             {isLoading
                 ? <span className="spinner spinner-slow"></span>
@@ -25,7 +26,7 @@ const App = () => {
                     }
                 </List>
             }
-            <Pagination />
+            <Pagination state={state} dispatch={dispatch} />
         </PokemonProvider>
     )
 }

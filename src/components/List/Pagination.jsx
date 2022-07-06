@@ -1,9 +1,10 @@
 import {useContext} from "react";
 import {PokemonContext} from "../../context/PokemonProvider";
 
-const Pagination = () => {
+const Pagination = ({state, dispatch}) => {
     const {pagination} = useContext(PokemonContext);
-    const {selectedPage, setSelectedPage, pagesNumber, itemsToShow, setItemsToShow, itemsPerPage} = pagination;
+    const {selectedPage, setSelectedPage, pagesNumber, itemsPerPage} = pagination;
+    const {itemsToShow} = state;
 
     const renderButtons = () => {
         let buttons = [];
@@ -20,7 +21,12 @@ const Pagination = () => {
     }
 
     const onChangeHandler = ({target}) => {
-        setItemsToShow(parseInt(target.value));
+        dispatch({
+            type: 'SET_ITEMS_TO_SHOW',
+            payload: {
+                itemsToShow: parseInt(target.value)
+            }
+        });
     }
 
     return <>
