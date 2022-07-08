@@ -1,25 +1,34 @@
-import { createContext } from 'react';
+import {createContext, useReducer} from "react";
+import {pokemonReducer} from "../reducers/pokemonReducer";
 
 export const PokemonContext = createContext();
 
-const PokemonProvider = ({pokemonsData, children}) => {
-    const {
-        pokemons,
-        isLoading,
-        typeFilter,
-        searchFilter,
-        sortFilter,
-        pagination,
-    } = pokemonsData;
+const PokemonProvider = ({children}) => {
+    const columns = ["id", "name"];
+    const sortTypes = ["asc", "desc"];
+    const itemsPerPage = [10, 25, 50];
 
-    return <PokemonContext.Provider value={{
-        pokemons,
-        isLoading,
-        typeFilter,
-        searchFilter,
-        sortFilter,
-        pagination,
-    }}>
+    const [state, dispatch] = useReducer(pokemonReducer, {
+        pokemons: [],
+        pokemonsToShow: [],
+        types: [],
+        isLoading: true,
+        searchValue: "",
+        pagination: {
+            selectedPage: 0,
+            pagesNumber: 0,
+            itemsPerPage,
+            selectedItemsPerPage: itemsPerPage[0]
+        },
+        sortFilter: {
+            columns,
+            selectedColumn: columns[0],
+            sortTypes,
+            selectedSortType: sortTypes[0]
+        }
+    });
+
+    return <PokemonContext.Provider value={{state, dispatch}}>
         { children }
     </PokemonContext.Provider>
 }

@@ -1,9 +1,13 @@
-const TypeFilter = ({ state, dispatch }) => {
+import {useContext} from "react";
+import {PokemonContext} from "../../context/PokemonProvider";
+
+const TypeFilter = () => {
+    const {state, dispatch} = useContext(PokemonContext);
     const {types, isLoading} = state;
 
     const onChangeHandler = ({target}) => {
         dispatch({
-            type: 'SET_SELECTED_TYPES',
+            type: "SET_SELECTED_TYPES",
             payload: {
                 typeName: target.value.name,
                 typeIsChecked: target.value.isChecked

@@ -1,32 +1,31 @@
+import {useContext} from "react";
 import List from "./components/list/List";
 import ListItem from "./components/List/ListItem";
 import TypeFilter from "./components/List/TypeFilter";
 import SearchFilter from "./components/list/SearchFilter";
 import Pagination from "./components/List/Pagination";
 import SortFilter from "./components/List/SortFilter";
-import usePokemons from "./hooks/usePokemons";
+import PokemonProvider, {PokemonContext} from "./context/PokemonProvider";
 import "./styles/app.scss";
-import PokemonProvider from "./context/PokemonProvider";
 
 const App = () => {
-    const pokemonsData = usePokemons();
-    const {pokemons, isLoading} = pokemonsData;
-    const {state, dispatch} = pokemonsData.typeFilter;
+    const {state} = useContext(PokemonContext);
+    const {isLoading, pokemonsToShow} = state;
 
     return (
-        <PokemonProvider pokemonsData={pokemonsData}>
+        <PokemonProvider>
             <SearchFilter />
-            <TypeFilter state={state} dispatch={dispatch} />
+            <TypeFilter />
             <SortFilter />
             {isLoading
                 ? <span className="spinner spinner-slow"></span>
                 : <List>
                     {
-                        pokemons && pokemons.map(pokemon => <ListItem key={pokemon.id} pokemon={pokemon}/>)
+                        pokemonsToShow && pokemonsToShow.map(pokemon => <ListItem key={pokemon.id} pokemon={pokemon}/>)
                     }
                 </List>
             }
-            <Pagination state={state} dispatch={dispatch} />
+            <Pagination />
         </PokemonProvider>
     )
 }

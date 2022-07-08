@@ -3,19 +3,21 @@ import {PokemonContext} from "../../context/PokemonProvider";
 
 const SearchFilter = () => {
     const inputRef = useRef();
-    const {searchFilter} = useContext(PokemonContext);
-    const {setSearchValue} = searchFilter;
+    const {dispatch} = useContext(PokemonContext);
 
     const onClickHandler = () => {
-        setSearchValue(inputRef.current.value)
+        dispatch({
+            type: "SET_SEARCH_VALUE",
+            payload: {
+                searchValue: inputRef.current.value,
+            }
+        });
     }
 
     return <>
         <input type="text" ref={inputRef}/>
         <button onClick={onClickHandler}>Search</button>
     </>;
-
-
 }
 
 export default SearchFilter;

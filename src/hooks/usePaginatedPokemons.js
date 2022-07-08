@@ -2,15 +2,15 @@ import {useState, useReducer} from "react";
 import { pokemonReducer } from "../reducers/pokemonReducer";
 
 const usePaginatedPokemons = ({pokemons, state, dispatch}) => {
-    const itemsPerPage = [10, 25, 50];
-    const {itemsToShow} = state;
+
+    const {selectedItemsPerPage} = state;
 
     const [selectedPage, setSelectedPage] = useState(0);
 
     const paginatedPokemons = (() => {
         const paginateFilteredPokemon = [];
-        for (let i = 0; i < pokemons.length; i += itemsToShow) {
-            paginateFilteredPokemon.push(pokemons.slice(i, i + itemsToShow));
+        for (let i = 0; i < pokemons.length; i += selectedItemsPerPage) {
+            paginateFilteredPokemon.push(pokemons.slice(i, i + selectedItemsPerPage));
         }
         return paginateFilteredPokemon;
     })();

@@ -1,12 +1,6 @@
-import {useEffect, useReducer} from "react";
-import { pokemonReducer } from "../reducers/pokemonReducer";
+import {useEffect} from "react";
 
 const usePokemonTypeApi = () => {
-    const [state, dispatch] = useReducer(pokemonReducer, {
-        types: [],
-        isLoading: true,
-        itemsToShow: 10,
-    });
     const POKEMON_TYPES_API = "https://pokeapi.co/api/v2/type";
     const types = state.types;
 
@@ -22,12 +16,6 @@ const usePokemonTypeApi = () => {
                     return { name: type.name, isSelected: false };
                 })
             }
-            dispatch({
-                type: 'SET_TYPES',
-                payload: {
-                    types
-                }
-            });
         })();
 
        /* return () => controller.abort();*/
@@ -36,8 +24,6 @@ const usePokemonTypeApi = () => {
     const selectedTypes = types.filter(type => type.isSelected);
 
     return {
-        state,
-        dispatch,
         selectedTypes
     };
 }

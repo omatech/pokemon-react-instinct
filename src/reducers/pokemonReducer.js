@@ -8,13 +8,32 @@ export const pokemonReducer = (state, { type, payload }) => {
         }
         case "SET_SELECTED_TYPES": {
             const newState = structuredClone(state);
-            console.log(newState);
             newState.types.find(type => type.name === payload.typeName).isSelected = payload.typeIsChecked;
             return newState;
         }
-        case "SET_ITEMS_TO_SHOW": {
+        case "SET_SELECTED_ITEMS_PER_PAGE": {
             const newState = structuredClone(state);
-            newState.itemsToShow = payload.itemsToShow;
+            newState.pagination.selectedItemsPerPage = payload.selectedItemsPerPage;
+            return newState;
+        }
+        case "SET_SELECTED_PAGE": {
+            const newState = structuredClone(state);
+            newState.pagination.selectedPage = payload.selectedPage;
+            return newState;
+        }
+        case "SET_SELECTED_COLUMN": {
+            const newState = structuredClone(state);
+            newState.sortFilter.selectedColumn = payload.selectedColumn;
+            return newState;
+        }
+        case "SET_SELECTED_SORT_TYPE": {
+            const newState = structuredClone(state);
+            newState.sortFilter.selectedSortType = payload.selectedSortType;
+            return newState;
+        }
+        case "SET_SEARCH_VALUE": {
+            const newState = structuredClone(state);
+            newState.searchValue = payload.searchValue;
             return newState;
         }
         default:

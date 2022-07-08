@@ -2,25 +2,25 @@ import {useContext} from "react";
 import {PokemonContext} from "../../context/PokemonProvider";
 
 const RadioGroup = ({value, name, onChange, isChecked}) => <label>
-    <input onChange={onChange}
-           type="radio"
-           name={name}
-           value={value}
-           checked={isChecked}
+    <input
+        onChange={onChange}
+       type="radio"
+       name={name}
+       value={value}
+       checked={isChecked}
     />
     <span>{value}</span>
 </label>
 
 const SortFilter = () => {
-    const {sortFilter} = useContext(PokemonContext);
+    const {state, dispatch} = useContext(PokemonContext);
+    const {sortFilter} = state;
 
     const {
         columns,
         selectedColumn,
-        setSelectedColumn,
         sortTypes,
         selectedSortType,
-        setSelectedSortType
     } = sortFilter;
 
     return (
@@ -29,7 +29,10 @@ const SortFilter = () => {
                 key={column}
                 value={column}
                 name="columns"
-                onChange={(e) => setSelectedColumn(e.target.value)}
+                onChange={(e) => dispatch({
+                    type: "SET_SELECTED_COLUMN",
+                    payload: { selectedColumn: e.target.value }
+                })}
                 isChecked={column === selectedColumn}
             />
             )}
@@ -38,7 +41,10 @@ const SortFilter = () => {
                 key={sortType}
                 value={sortType}
                 name="sortTypes"
-                onChange={(e) => setSelectedSortType(e.target.value)}
+                onChange={(e) => dispatch({
+                    type: "SET_SELECTED_SORT_TYPE",
+                    payload: { selectedSortType: e.target.value }
+                })}
                 isChecked={sortType === selectedSortType}
             />)}
         </div>
