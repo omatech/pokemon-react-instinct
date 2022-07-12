@@ -3,7 +3,6 @@ export const pokemonReducer = (state, { type, payload }) => {
         case "SET_TYPES": {
             const newState = structuredClone(state);
             newState.types = payload.types;
-            newState.isLoading = false;
             return newState;
         }
         case "SET_SELECTED_TYPES": {
@@ -31,9 +30,9 @@ export const pokemonReducer = (state, { type, payload }) => {
             newState.sortFilter.selectedSortType = payload.selectedSortType;
             return newState;
         }
-        case "SET_SEARCH_VALUE": {
+        case "SET_POKEMONS_TO_SHOW": {
             const newState = structuredClone(state);
-            newState.searchValue = payload.searchValue;
+            newState.pokemonsToShow = payload.pokemonsToShow;
             return newState;
         }
         default:

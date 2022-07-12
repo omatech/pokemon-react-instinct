@@ -1,11 +1,12 @@
-import {useState, useReducer} from "react";
+import {useState, useReducer, useContext} from "react";
 import { pokemonReducer } from "../reducers/pokemonReducer";
+import {PokemonContext} from "../context/PokemonProvider";
 
-const usePaginatedPokemons = ({pokemons, state, dispatch}) => {
+const usePaginatedPokemons = () => {
 
-    const {selectedItemsPerPage} = state;
-
-    const [selectedPage, setSelectedPage] = useState(0);
+    const {state, dispatch} = useContext(PokemonContext)
+    const {pagination, pokemons} = state;
+    const {selectedItemsPerPage, selectedPage} = pagination;
 
     const paginatedPokemons = (() => {
         const paginateFilteredPokemon = [];
@@ -15,15 +16,19 @@ const usePaginatedPokemons = ({pokemons, state, dispatch}) => {
         return paginateFilteredPokemon;
     })();
 
-    const pagesNumber = paginatedPokemons.length;
+    dispatch({
+        type: "SET_POKEMONS_TO_SHOW",
+        payload: {
+            pokemonsToShow: paginatedPokemons[selectedPage]
+        }
+    });
+    dispatch({
+        type: "SET_PAGES_NUMBER",
+        payload: {
+            pagesNumber: paginatedPokemons.length
+        }
+    });
 
-    return {
-        selectedPage,
-        setSelectedPage,
-        pagesNumber,
-        itemsPerPage,
-        pokemonsInPage: paginatedPokemons[selectedPage]
-    }
-}
+};
 
 export default usePaginatedPokemons;

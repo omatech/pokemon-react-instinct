@@ -1,9 +1,12 @@
 import {useContext} from "react";
 import {PokemonContext} from "../../context/PokemonProvider";
+import usePokemonTypeApi from "../../hooks/usePokemonTypeApi";
 
 const TypeFilter = () => {
+
+    const isLoadingType = usePokemonTypeApi();
     const {state, dispatch} = useContext(PokemonContext);
-    const {types, isLoading} = state;
+    const {types} = state;
 
     const onChangeHandler = ({target}) => {
         dispatch({
@@ -15,7 +18,7 @@ const TypeFilter = () => {
         });
     };
 
-    return isLoading ? <span className="spinner spinner-slow"/>
+    return isLoadingType ? <span className="spinner spinner-slow"/>
         : <div>
                 {
                     types.map(type =>

@@ -1,27 +1,32 @@
-import {useEffect, useState} from "react";
+import {useContext, useEffect, useState} from "react";
+import {PokemonContext} from "../context/PokemonProvider";
 
 const usePokemonApi = () => {
-    const [pokemons, setPokemons] = useState([]);
-    const [isLoading, setIsLoading] = useState(true);
+    const {dispatch} = useContext(PokemonContext);
     const POKEMON_API = "https://pokeapi.co/api/v2/pokemon?limit=151";
+    const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
         const controller = new AbortController();
-
         (async () => {
             setIsLoading(true);
             const request = await fetch(POKEMON_API, { signal: controller.signal });
             const result = await request.json();
-            let pokemons = [];
+
             if(request.ok) {
-                pokemons = await getPokemonsData(result.results);
-                setPokemons(pokemons);
+                const pokemons = await getPokemonsData(result.results);
+                dispatch({
+                    type: "SET_POKEMONS",
+                    payload: {
+                        pokemons
+                    }
+                })
                 setIsLoading(false);
             }
         })();
 
         return () => controller.abort();
-    }, []);
+    }, []) ;
 
     const getPokemonsData = async(pokemons) => {
         const promises = pokemons.map(getPokemonData);
@@ -42,7 +47,7 @@ const usePokemonApi = () => {
         }
     }
 
-    return {pokemons, isLoading};
+    return isLoading;
 }
 
 export default usePokemonApi;

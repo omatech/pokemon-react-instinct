@@ -12,7 +12,6 @@ const PokemonProvider = ({children}) => {
         pokemons: [],
         pokemonsToShow: [],
         types: [],
-        isLoading: true,
         searchValue: "",
         pagination: {
             selectedPage: 0,
