@@ -8,16 +8,14 @@ import {useContext} from "react";
 import {PokemonContext} from "../context/PokemonProvider";
 import usePokemonApi from "../hooks/usePokemonApi";
 import usePaginatedPokemons from "../hooks/usePaginatedPokemons";
-import useFilteredPokemons from "../hooks/useFilteredPokemons";
 import useSortedPokemons from "../hooks/useSortedPokemons";
 
 const PokemonDashboard = () => {
 
     const {state} = useContext(PokemonContext);
     const isLoading = usePokemonApi();
-    useFilteredPokemons();
-    useSortedPokemons();
-    usePaginatedPokemons();
+    //useSortedPokemons();
+    //usePaginatedPokemons();
     const {pokemonsToShow} = state;
 
     return (

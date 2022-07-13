@@ -10,7 +10,7 @@ const TypeFilter = () => {
 
     const onChangeHandler = ({target}) => {
         dispatch({
-            type: "SET_SELECTED_TYPES",
+            type: "SET_TYPE",
             payload: {
                 typeName: target.value.name,
                 typeIsChecked: target.value.isChecked
