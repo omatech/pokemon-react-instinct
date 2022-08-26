@@ -10,15 +10,19 @@ export const pokemonReducer = (state, { type, payload }) => {
             newState.types.find(type => type.name === payload.typeName).isSelected = payload.typeIsChecked;
             const selectedTypes = newState.types.filter(type => type.isSelected);
             if (!!selectedTypes.length) {
-                newState.pokemonsToShow = newState.pokemons.filter(pokemon => selectedTypes.some(type => pokemon.types.includes(type.name)))
+                newState.filteredPokemons = newState.pokemons.filter(pokemon => selectedTypes.some(type => pokemon.types.includes(type.name)))
             } else {
-                newState.pokemonsToShow = newState.pokemons;
+                newState.filteredPokemons = newState.pokemons;
             }
+            newState.pagination.selectedPage = 0;
+            newState.pagination.pagesNumber = Math.ceil(newState.filteredPokemons.length / newState.pagination.selectedItemsPerPage);
             return newState;
         }
         case "SET_SELECTED_ITEMS_PER_PAGE": {
             const newState = structuredClone(state);
             newState.pagination.selectedItemsPerPage = payload.selectedItemsPerPage;
+            newState.pagination.selectedPage = 0;
+            newState.pagination.pagesNumber = Math.ceil(newState.filteredPokemons.length / newState.pagination.selectedItemsPerPage);
             return newState;
         }
         case "SET_SELECTED_PAGE": {
@@ -39,17 +43,28 @@ export const pokemonReducer = (state, { type, payload }) => {
         case "SET_SEARCH_VALUE": {
             const newState = structuredClone(state);
             newState.searchValue = payload.searchValue;
-            newState.pokemonsToShow = newState.pokemons.filter(pokemon =>
+            newState.filteredPokemons = newState.pokemons.filter(pokemon =>
                 pokemon.name.toLowerCase().includes(newState.searchValue.toLowerCase())
             );
+            newState.pagination.selectedPage = 0;
+            newState.pagination.pagesNumber = Math.ceil(newState.filteredPokemons.length / newState.pagination.selectedItemsPerPage);
             return newState;
         }
         case "SET_POKEMONS": {
             const newState = structuredClone(state);
             newState.pokemons = payload.pokemons;
-            newState.pokemonsToShow = payload.pokemons;
+            newState.filteredPokemons = payload.pokemons;
+            newState.pagination.selectedPage = 0;
+            newState.pagination.pagesNumber = Math.ceil(newState.filteredPokemons.length / newState.pagination.selectedItemsPerPage);
             return newState;
-        }
+        }/*
+        case "SET_FILTERED_POKEMONS": {
+            const newState = structuredClone(state);
+            newState.filteredPokemons = payload.filteredPokemons;
+            newState.pagination.selectedPage = 0;
+            newState.pagination.pagesNumber = Math.ceil(newState.filteredPokemons.length / newState.pagination.selectedItemsPerPage);
+            return newState;
+        }*/
         default:
             return state;
     }

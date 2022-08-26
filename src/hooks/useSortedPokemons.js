@@ -4,6 +4,7 @@ import {useContext} from "react";
 const useSortedPokemons = () => {
 
     const {state, dispatch} = useContext(PokemonContext);
+    const {selectedColumn, selectedSortType, sortTypes} = state.sortFilter;
 
     const sortedPokemons = state.pokemons.sort((a, b) => {
         if (a[selectedColumn] > b[selectedColumn]) {
@@ -16,9 +17,9 @@ const useSortedPokemons = () => {
     });
 
     dispatch({
-        type: "SET_POKEMONS_TO_SHOW",
+        type: "SET_FILTERED_POKEMONS",
         payload: {
-            pokemonsToShow: sortedPokemons
+            filteredPokemons: sortedPokemons
         }
     });
 }

@@ -17,9 +17,9 @@ const usePaginatedPokemons = () => {
     })();
 
     dispatch({
-        type: "SET_POKEMONS_TO_SHOW",
+        type: "SET_FILTERED_POKEMONS",
         payload: {
-            pokemonsToShow: paginatedPokemons[selectedPage]
+            filteredPokemons: paginatedPokemons[selectedPage] || []
         }
     });
     dispatch({

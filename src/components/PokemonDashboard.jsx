@@ -7,15 +7,15 @@ import Pagination from "./List/Pagination";
 import {useContext} from "react";
 import {PokemonContext} from "../context/PokemonProvider";
 import usePokemonApi from "../hooks/usePokemonApi";
-import usePaginatedPokemons from "../hooks/usePaginatedPokemons";
 import useSortedPokemons from "../hooks/useSortedPokemons";
+import usePaginatedPokemons from "../hooks/usePaginatedPokemons";
 
 const PokemonDashboard = () => {
     const {state} = useContext(PokemonContext);
     const isLoading = usePokemonApi();
-    //useSortedPokemons();
+    useSortedPokemons();
     //usePaginatedPokemons();
-    const {pokemonsToShow} = state;
+    const {filteredPokemons} = state;
 
     return (
         <>
@@ -26,7 +26,7 @@ const PokemonDashboard = () => {
                 ? <span className="spinner spinner-slow"></span>
                 : <List>
                     {
-                        pokemonsToShow && pokemonsToShow.map(pokemon => <ListItem key={pokemon.id} pokemon={pokemon}/>)
+                        filteredPokemons && filteredPokemons.map(pokemon => <ListItem key={pokemon.id} pokemon={pokemon}/>)
                     }
                 </List>
             }
