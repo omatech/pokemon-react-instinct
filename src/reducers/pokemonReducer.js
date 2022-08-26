@@ -44,6 +44,12 @@ export const pokemonReducer = (state, { type, payload }) => {
             );
             return newState;
         }
+        case "SET_POKEMONS": {
+            const newState = structuredClone(state);
+            newState.pokemons = payload.pokemons;
+            newState.pokemonsToShow = payload.pokemons;
+            return newState;
+        }
         default:
             return state;
     }

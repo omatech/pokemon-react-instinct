@@ -11,7 +11,6 @@ import usePaginatedPokemons from "../hooks/usePaginatedPokemons";
 import useSortedPokemons from "../hooks/useSortedPokemons";
 
 const PokemonDashboard = () => {
-
     const {state} = useContext(PokemonContext);
     const isLoading = usePokemonApi();
     //useSortedPokemons();

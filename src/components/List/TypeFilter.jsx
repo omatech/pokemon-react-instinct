@@ -12,8 +12,8 @@ const TypeFilter = () => {
         dispatch({
             type: "SET_TYPE",
             payload: {
-                typeName: target.value.name,
-                typeIsChecked: target.value.isChecked
+                typeName: target.name,
+                typeIsChecked: target.checked,
             }
         });
     };
