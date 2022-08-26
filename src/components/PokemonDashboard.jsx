@@ -4,7 +4,7 @@ import SortFilter from "./List/SortFilter";
 import List from "./List/List";
 import ListItem from "./List/ListItem";
 import Pagination from "./List/Pagination";
-import {useContext} from "react";
+import {useContext, useEffect} from "react";
 import {PokemonContext} from "../context/PokemonProvider";
 import usePokemonApi from "../hooks/usePokemonApi";
 import useSortedPokemons from "../hooks/useSortedPokemons";
@@ -13,9 +13,11 @@ import usePaginatedPokemons from "../hooks/usePaginatedPokemons";
 const PokemonDashboard = () => {
     const {state} = useContext(PokemonContext);
     const isLoading = usePokemonApi();
-    useSortedPokemons();
-    //usePaginatedPokemons();
     const {filteredPokemons} = state;
+
+    //todo
+        useSortedPokemons();
+    //usePaginatedPokemons();
 
     return (
         <>

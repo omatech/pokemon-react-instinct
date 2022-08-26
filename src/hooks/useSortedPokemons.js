@@ -16,6 +16,7 @@ const useSortedPokemons = () => {
         return 0;
     });
 
+    console.log('set filtered pok')
     dispatch({
         type: "SET_FILTERED_POKEMONS",
         payload: {
