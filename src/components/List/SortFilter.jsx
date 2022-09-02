@@ -23,16 +23,25 @@ const SortFilter = () => {
         selectedSortType,
     } = sortFilter;
 
+    const setSortedPokemons = () => {
+        dispatch({
+            type: "SET_SORTED_POKEMONS"
+        });
+    }
+
     return (
         <div>
             {columns.map(column => <RadioGroup
                 key={column}
                 value={column}
                 name="columns"
-                onChange={(e) => dispatch({
-                    type: "SET_SELECTED_COLUMN",
-                    payload: { selectedColumn: e.target.value }
-                })}
+                onChange={(e) => {
+                    dispatch({
+                        type: "SET_SELECTED_COLUMN",
+                        payload: { selectedColumn: e.target.value }
+                    })
+                    setSortedPokemons()
+                }}
                 isChecked={column === selectedColumn}
             />
             )}
@@ -41,10 +50,13 @@ const SortFilter = () => {
                 key={sortType}
                 value={sortType}
                 name="sortTypes"
-                onChange={(e) => dispatch({
-                    type: "SET_SELECTED_SORT_TYPE",
-                    payload: { selectedSortType: e.target.value }
-                })}
+                onChange={(e) => {
+                    dispatch({
+                        type: "SET_SELECTED_SORT_TYPE",
+                        payload: { selectedSortType: e.target.value }
+                    })
+                    setSortedPokemons()
+                }}
                 isChecked={sortType === selectedSortType}
             />)}
         </div>

@@ -1,5 +1,4 @@
 export const pokemonReducer = (state, {type, payload}) => {
-    //TODO Falta ordenar i paginar
     switch (type) {
         case "SET_TYPES": {
             const newState = structuredClone(state);
@@ -21,7 +20,6 @@ export const pokemonReducer = (state, {type, payload}) => {
         case "SET_SELECTED_PAGE": {
             const newState = structuredClone(state);
             newState.pagination.selectedPage = payload.selectedPage;
-            return setPokemonsToShow(newState);
             return newState;
         }
         case "SET_SELECTED_COLUMN": {
@@ -48,26 +46,22 @@ export const pokemonReducer = (state, {type, payload}) => {
             return setPokemonsToShow(newState);
             return newState;
         }
-        case "SET_POKEMONS_TO_SHOW": {
+
+        case "SET_SORTED_POKEMONS": {
             const newState = structuredClone(state);
-            const selectedTypes = newState.types.filter(type => type.isSelected);
-
-            newState.filteredPokemons = newState.pokemons.filter(pokemon => pokemon.name.toLowerCase().includes(newState.searchValue.toLowerCase()))
-
-            if (!!selectedTypes.length) {
-                newState.filteredPokemons = newState.filteredPokemons.filter(pokemon => selectedTypes.some(type => pokemon.types.includes(type.name)))
-            }
-
-            newState.pagination.selectedPage = 0;
-            newState.pagination.pagesNumber = Math.ceil(newState.filteredPokemons.length / newState.pagination.selectedItemsPerPage);
+            const {selectedColumn, selectedSortType, sortTypes} = newState.sortFilter;
+            newState.filteredPokemons.sort((a, b) => {
+                if (a[selectedColumn] > b[selectedColumn]) {
+                    return selectedSortType === sortTypes[0] ? 1 : -1;
+                }
+                if (a[selectedColumn] < b[selectedColumn]) {
+                    return selectedSortType === sortTypes[0] ? -1 : 1;
+                }
+                return 0;
+            });
             return newState;
         }
-        /*
-        case "SET_FILTERED_POKEMONS": {
-            const newState = structuredClone(state);
-            newState.filteredPokemons = payload.filteredPokemons;
-            return newState;
-        }*/
+
         default:
             return state;
     }

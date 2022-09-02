@@ -4,20 +4,18 @@ import SortFilter from "./List/SortFilter";
 import List from "./List/List";
 import ListItem from "./List/ListItem";
 import Pagination from "./List/Pagination";
-import {useContext, useEffect} from "react";
+import {useContext} from "react";
 import {PokemonContext} from "../context/PokemonProvider";
 import usePokemonApi from "../hooks/usePokemonApi";
-import useSortedPokemons from "../hooks/useSortedPokemons";
-import usePaginatedPokemons from "../hooks/usePaginatedPokemons";
 
 const PokemonDashboard = () => {
     const {state} = useContext(PokemonContext);
     const isLoading = usePokemonApi();
     const {filteredPokemons} = state;
+    const {pagination} = state;
+    const {selectedItemsPerPage, selectedPage} = pagination;
 
-    //todo
-        useSortedPokemons();
-    //usePaginatedPokemons();
+    const pokemonsInPage = filteredPokemons.slice(selectedPage * selectedItemsPerPage, selectedPage * selectedItemsPerPage + selectedItemsPerPage)
 
     return (
         <>
@@ -28,7 +26,7 @@ const PokemonDashboard = () => {
                 ? <span className="spinner spinner-slow"></span>
                 : <List>
                     {
-                        filteredPokemons && filteredPokemons.map(pokemon => <ListItem key={pokemon.id} pokemon={pokemon}/>)
+                        pokemonsInPage && pokemonsInPage.map(pokemon => <ListItem key={pokemon.id} pokemon={pokemon}/>)
                     }
                 </List>
             }
