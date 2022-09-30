@@ -4,17 +4,16 @@ export const pokemonReducer = (state, {type, payload}) => {
             const newState = structuredClone(state);
             newState.types = payload.types;
             return setPokemonsToShow(newState);
-            return newState;
         }
         case "SET_TYPE": {
             const newState = structuredClone(state);
             newState.types.find(type => type.name === payload.typeName).isSelected = payload.typeIsChecked;
             return setPokemonsToShow(newState);
-            return newState;
         }
         case "SET_SELECTED_ITEMS_PER_PAGE": {
             const newState = structuredClone(state);
             newState.pagination.selectedItemsPerPage = payload.selectedItemsPerPage;
+            setPagination(newState)
             return newState;
         }
         case "SET_SELECTED_PAGE": {
@@ -26,7 +25,6 @@ export const pokemonReducer = (state, {type, payload}) => {
             const newState = structuredClone(state);
             newState.sortFilter.selectedColumn = payload.selectedColumn;
             return setPokemonsToShow(newState);
-            return newState;
         }
         case "SET_SELECTED_SORT_TYPE": {
             const newState = structuredClone(state);
@@ -37,16 +35,13 @@ export const pokemonReducer = (state, {type, payload}) => {
             const newState = structuredClone(state);
             newState.searchValue = payload.searchValue;
             return setPokemonsToShow(newState);
-            return newState;
         }
         case "SET_POKEMONS": {
             const newState = structuredClone(state);
             newState.pokemons = payload.pokemons;
             newState.filteredPokemons = payload.pokemons;
             return setPokemonsToShow(newState);
-            return newState;
         }
-
         case "SET_SORTED_POKEMONS": {
             const newState = structuredClone(state);
             const {selectedColumn, selectedSortType, sortTypes} = newState.sortFilter;
@@ -77,7 +72,11 @@ const setPokemonsToShow = state => {
         newState.filteredPokemons = newState.filteredPokemons.filter(pokemon => selectedTypes.some(type => pokemon.types.includes(type.name)))
     }
 
-    newState.pagination.selectedPage = 0;
-    newState.pagination.pagesNumber = Math.ceil(newState.filteredPokemons.length / newState.pagination.selectedItemsPerPage);
+    setPagination(newState)
     return newState;
+}
+
+const setPagination = state => {
+    state.pagination.selectedPage = 0;
+    state.pagination.pagesNumber = Math.ceil(state.filteredPokemons.length / state.pagination.selectedItemsPerPage);
 }

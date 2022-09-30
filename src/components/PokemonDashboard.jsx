@@ -26,7 +26,7 @@ const PokemonDashboard = () => {
                 ? <span className="spinner spinner-slow"></span>
                 : <List>
                     {
-                        pokemonsInPage && pokemonsInPage.map(pokemon => <ListItem key={pokemon.id} pokemon={pokemon}/>)
+                        pokemonsInPage.length ? pokemonsInPage.map(pokemon => <ListItem key={pokemon.id} pokemon={pokemon}/>): <p>No pokemons to show :( </p>
                     }
                 </List>
             }

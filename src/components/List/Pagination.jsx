@@ -19,10 +19,10 @@ const Pagination = () => {
         let buttons = [];
         let firstButton = selectedPage - 1;
 
-        if (selectedPage === pagesNumber - 1) firstButton = selectedPage - 2
-        else if (selectedPage === 0) firstButton = 0
+        if (selectedPage === 0) firstButton = 0
+        else if (selectedPage === pagesNumber - 1) firstButton = selectedPage - 2
 
-        for(let i = 0; i < 3; i++){
+        for(let i = 0; i < Math.min(pagesNumber, 3); i++){
             buttons.push(<button key={firstButton + i} disabled={firstButton + i === selectedPage} onClick={() => onClickHandler(firstButton + i)}>{ firstButton + i + 1 }</button>);
         }
 
@@ -38,14 +38,14 @@ const Pagination = () => {
         });
     }
 
-    return <>
+    return pagesNumber ? <>
         <select onChange={onChangeHandler} value={selectedItemsPerPage}>
             {
                 itemsPerPage.map(size => <option value={size} key={size}>{size}</option>)
             }
         </select>
         { renderButtons() }
-    </>
+    </>: null
 }
 
 export default Pagination;
