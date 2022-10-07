@@ -1,5 +1,5 @@
 import {useContext, useRef} from "react";
-import {PokemonContext} from "../../context/PokemonProvider";
+import {PokemonContext} from "../context/PokemonProvider";
 
 const SearchFilter = () => {
     const inputRef = useRef();

@@ -42,6 +42,11 @@ export const pokemonReducer = (state, {type, payload}) => {
             newState.filteredPokemons = payload.pokemons;
             return setPokemonsToShow(newState);
         }
+        case "SET_SELECTED_POKEMON_ID": {
+            const newState = structuredClone(state);
+            newState.selectedPokemonId = payload.selectedPokemonId;
+            return newState;
+        }
         case "SET_SORTED_POKEMONS": {
             const newState = structuredClone(state);
             const {selectedColumn, selectedSortType, sortTypes} = newState.sortFilter;

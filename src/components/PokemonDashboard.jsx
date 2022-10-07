@@ -1,12 +1,13 @@
-import SearchFilter from "./List/SearchFilter";
-import TypeFilter from "./List/TypeFilter";
-import SortFilter from "./List/SortFilter";
+import SearchFilter from "./SearchFilter";
+import TypeFilter from "./TypeFilter";
+import SortFilter from "./SortFilter";
 import List from "./List/List";
 import ListItem from "./List/ListItem";
-import Pagination from "./List/Pagination";
-import {useContext} from "react";
+import Pagination from "./Pagination";
+import {useContext, useState} from "react";
 import {PokemonContext} from "../context/PokemonProvider";
 import usePokemonApi from "../hooks/usePokemonApi";
+import PokemonDetailModal from "./Modal/Modal";
 
 const PokemonDashboard = () => {
     const {state} = useContext(PokemonContext);
@@ -14,6 +15,21 @@ const PokemonDashboard = () => {
     const {filteredPokemons} = state;
     const {pagination} = state;
     const {selectedItemsPerPage, selectedPage} = pagination;
+    const {dispatch} = useContext(PokemonContext)
+
+    const [showModal, setShowModal] = useState(false)
+
+    const openModal = pokemonId => {
+        dispatch({
+            type: "SET_SELECTED_POKEMON_ID",
+            payload: {selectedPokemonId: pokemonId}
+        });
+        setShowModal(!showModal)
+    }
+
+    const closeModal = () => {
+        setShowModal(!showModal)
+    }
 
     const pokemonsInPage = filteredPokemons.slice(selectedPage * selectedItemsPerPage, selectedPage * selectedItemsPerPage + selectedItemsPerPage)
 
@@ -24,11 +40,14 @@ const PokemonDashboard = () => {
             <SortFilter />
             {isLoading
                 ? <span className="spinner spinner-slow"></span>
-                : <List>
+                : <>
+                    <List>
                     {
-                        pokemonsInPage.length ? pokemonsInPage.map(pokemon => <ListItem key={pokemon.id} pokemon={pokemon}/>): <p>No pokemons to show :( </p>
+                        pokemonsInPage.length ? pokemonsInPage.map(pokemon => <ListItem key={pokemon.id} pokemon={pokemon} openModal={openModal} />): <p>No pokemons to show :( </p>
                     }
-                </List>
+                    </List>
+                    <PokemonDetailModal showModal={showModal} closeModal={closeModal} />
+                </>
             }
             <Pagination />
         </>

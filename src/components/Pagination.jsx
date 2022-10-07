@@ -1,5 +1,5 @@
 import {useContext} from "react";
-import {PokemonContext} from "../../context/PokemonProvider";
+import {PokemonContext} from "../context/PokemonProvider";
 
 const Pagination = () => {
     const {state, dispatch} = useContext(PokemonContext);

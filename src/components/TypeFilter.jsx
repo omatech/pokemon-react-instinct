@@ -1,6 +1,6 @@
 import {useContext} from "react";
-import {PokemonContext} from "../../context/PokemonProvider";
-import usePokemonTypeApi from "../../hooks/usePokemonTypeApi";
+import {PokemonContext} from "../context/PokemonProvider";
+import usePokemonTypeApi from "../hooks/usePokemonTypeApi";
 
 const TypeFilter = () => {
 

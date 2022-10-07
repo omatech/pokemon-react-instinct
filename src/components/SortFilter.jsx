@@ -1,5 +1,5 @@
 import {useContext} from "react";
-import {PokemonContext} from "../../context/PokemonProvider";
+import {PokemonContext} from "../context/PokemonProvider";
 
 const RadioGroup = ({value, name, onChange, isChecked}) => <label>
     <input

@@ -6,9 +6,11 @@ const StyledUl = styled.ul`
   grid-template-columns: repeat(3, 1fr);
 `;
 
-const List = ({children}) =>
-<StyledUl className={styles.color}>
-  { children }
-</StyledUl>
+const List = ({children}) => (
+    <StyledUl className={styles.color}>
+        {children}
+    </StyledUl>
+)
+
 
 export default List;

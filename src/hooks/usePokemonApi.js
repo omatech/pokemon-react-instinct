@@ -6,6 +6,8 @@ const usePokemonApi = () => {
     const POKEMON_API = "https://pokeapi.co/api/v2/pokemon?limit=151";
     const [isLoading, setIsLoading] = useState(true);
 
+    const toUpperCase = string => string.charAt(0).toUpperCase() + string.slice(1);
+
     useEffect(() => {
         const controller = new AbortController();
         (async () => {
@@ -39,10 +41,10 @@ const usePokemonApi = () => {
         if(request.ok) {
             return {
                 id: result.id,
-                name: result.name,
-                types: result.types.map(type => type.type.name),
+                name: toUpperCase(result.name),
+                types: result.types.map(type => toUpperCase(type.type.name)),
                 image: result.sprites.front_default,
-                attacks: result.moves.map(attack => attack.move.name),
+                attacks: result.moves.map(attack => toUpperCase(attack.move.name)),
             };
         }
     }

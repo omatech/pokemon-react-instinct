@@ -11,6 +11,7 @@ const PokemonProvider = ({children}) => {
     const [state, dispatch] = useReducer(pokemonReducer, {
         pokemons: [],
         filteredPokemons: [],
+        selectedPokemonId: 0,
         types: [],
         searchValue: "",
         pagination: {
